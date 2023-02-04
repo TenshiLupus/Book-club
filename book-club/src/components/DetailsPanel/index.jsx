@@ -1,19 +1,42 @@
-import React from 'react'
-import {React} from './styles'
+import React, {useEffect, useRef} from 'react'
+import {Panel, P, Em, Close, CloseWrapper, BG} from './styles'
+import Book from '../Book'
 
-const DetailsPanel = ({book}) => (
-    <article>
-        <figure>
-            <img alt="" src={book.image}/>
-            <h3>{book.title}</h3>
-            <h4>by {book.author}</h4>
-        </figure>
+const DetailsPanel = ({book, closePanel, state}) => {
+  //References to page components
+  const panelEl = useRef(null)
+  const prevBook = useRef(null)
 
-        <p>{book.description}</p>
-        <p>
-            <em>Published in {book.published}</em>
-        </p>
-    </article>
-)
+  useEffect(() => {
+    if(prevBook.current !== book) {
+      panelEl.current.scrollTop = 0;
+    }
+
+    prevBook.current = book;
+    
+    //dependency array to rerun if values change
+  }, [book, prevBook])
+
+  console.log(state)
+  return (
+    <>
+      <BG onClick={closePanel} $state={state} />
+      <Panel $state={state} ref={panelEl}>
+        <CloseWrapper onClick={closePanel} $state={state}>
+          <Close />
+        </CloseWrapper>
+        {book && (
+          <>
+            <Book book={book} isLarge={true} />
+            <P>{book.description}</P>
+            <P>
+              <Em>Published in {book.published}</Em>
+            </P>
+          </>
+        )}
+      </Panel>
+    </>
+  )
+}
 
 export default DetailsPanel

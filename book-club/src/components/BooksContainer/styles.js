@@ -1,9 +1,13 @@
 import styled from 'styled-components'
 
+//transient props are meant to be consumed by a styled component
+
 export const Container = styled.div`
     background-color: #a6e1f8;
     padding: 160px 40px;
-    overflow: scroll;
+    overflow: ${({$isPanelOpen}) => ($isPanelOpen ? 'hidden' : 'scroll')};
+    position: ${({$isPanelOpen}) => ($isPanelOpen ? 'fixed' : 'unset')};
+    top: {({isPanelOpen, $top}) => ()}
 
     @media (max-width: 800px){
         padding: 114px 20px;
