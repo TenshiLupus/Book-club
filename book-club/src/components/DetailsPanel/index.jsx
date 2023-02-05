@@ -1,6 +1,8 @@
 import React, {useEffect, useRef} from 'react'
-import {Panel, P, Em, Close, CloseWrapper, BG} from './styles'
+import {Panel, P, Em, CloseWrapper, BG} from './styles'
+import {Close} from '../../styles'
 import Book from '../Book'
+
 
 const DetailsPanel = ({book, closePanel, state}) => {
   //References to page components
@@ -23,7 +25,7 @@ const DetailsPanel = ({book, closePanel, state}) => {
       <BG onClick={closePanel} $state={state} />
       <Panel $state={state} ref={panelEl}>
         <CloseWrapper onClick={closePanel} $state={state}>
-          <Close />
+          <Close/>
         </CloseWrapper>
         {book && (
           <>
